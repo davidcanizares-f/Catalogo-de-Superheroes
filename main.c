@@ -11,6 +11,7 @@ Autores:
 
 ================= CATÁLOGO DE SUPERHÉROES =================
 
-
-
 */
+
+#include <stdio.h>
+#include <string.h>
