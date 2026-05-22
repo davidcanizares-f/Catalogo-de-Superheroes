@@ -5,7 +5,6 @@
 
 
 
-
 void etiquetaInicial(){
     printf("\n===========================\n");
     printf("- REGISTRO DE SUPERHEROES -\n");
@@ -138,27 +137,350 @@ int menuPrincipal(int *ptrOpcionmenuPrincipal){
     return *ptrOpcionmenuPrincipal;
 }
 
-void mostrarDatosTabla(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades){
+/*void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades){
     for(int i=0; i<*ptrnumSupers; i++){
         printf("\t");
-        printf("ID: %d", supers[i].id);
-        printf("\tNOMBRE: %s", supers[i].nombre);
-        printf("\tPESO: %.2f kg", supers[i].peso);
-        printf("\tALTURA: %.2f m", supers[i].altura);
-        printf("\tCIUDAD ORIGEN: %s", supers[i].fichaTecnica1.ciudadOrigen);
-        printf("\tPODERES:");
-        for(int j=0; j<*ptrNumeroPoderes; j++){
+        printf("%-*sID, """);
+        printf("%-*sNOMBRE, """);
+        printf("%-*sPESO,""");
+        printf("%-*sALTURA,""");
+        printf("%-*sCIUDAD ORIGEN,""");
+        printf("%-*sPODERES,""");
+
+        printf("\tDEBILIDADES\t");
+        
+        printf("\tARCHIENEMIGO\t");
+        printf("\tSAGA\t");
+        printf("\tESTADO(VIGENTE)\t");
+        
+        printf("\n");
+
+        for(int i=0; i<*ptrnumSupers; i++){
+            printf("SUPERHEROE %d\t", i+1);
+            printf("%d\t", supers[i].id);
+            printf("%s\t", supers[i].nombre);
+            printf("%.2f\t", supers[i].peso);
+            printf("%.2f\t", supers[i].altura);
+            printf("%s\t", supers[i].fichaTecnica1.ciudadOrigen);
+            for(int j=0; j<*ptrNumeroPoderes; j++){
+                printf("%s\n", supers[i].fichaTecnica1.poderes[j]);
+
+            }
+            printf("\033[1A");
+            for(int j=0; j<*ptrNumeroDebilidades; j++){
+                printf("%s\n", supers[i].fichaTecnica1.debilidades[j]);
+            }
+            printf("%s\t", supers[i].fichaTecnica1.archienemigo);
+            printf("%s\t", supers[i].saga);
+            printf("%s\n", supers[i].estado);
+            printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+        }
+    }
+}*/
+
+/*void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades){
+    printf("%-*s %-*d %-*s %-*s\n",
+           W_NOMBRE, nombre,
+           W_ID,     id,
+           W_PESO
+           W_ALTURA
+           W_CIUDAD
+           W_PODERES
+           W_DEBILIDADES
+           W_ARCHIENEMIGO
+           W_SAGA
+           W_ESTADO
+           
+           W_PODER,  poderes[0],
+           W_EXTRA,  extras[0]);
+}*/
+
+    /*for(int j=0; j<*ptrNumeroPoderes; j++){
             printf("    - %s\n", supers[i].fichaTecnica1.poderes[j]);
+            
+        }
+        for(int j=0; j<*ptrNumeroDebilidades; j++){
+            printf("    - %s\n", supers[i].fichaTecnica1.debilidades[j]);
+        }*/
+
+
+/*void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades){
+    printf("\n=========================================================================================================================================================================\n");
+
+    printf("%-5s %-15s %-8s %-8s %-15s %-30s %-30s %-15s %-10s\n",
+           "ID",
+           "NOMBRE",
+           "PESO",
+           "ALTURA",
+           "CIUDAD",
+           "PODERES",
+           "DEBILIDADES",
+           "SAGA",
+           "ESTADO");
+
+    printf("=========================================================================================================================================================================\n");
+
+    for(int i = 0; i <*ptrnumSupers; i++){
+
+        printf("%-5d %-20s %-8.2f %-8.2f %-15s ",
+               supers[i].id,
+               supers[i].nombre,
+               supers[i].peso,
+               supers[i].altura,
+               supers[i].fichaTecnica1.ciudadOrigen);
+
+        // Poderes
+        for(int j = 0; j < *ptrNumeroPoderes; j++){
+
+            if(strlen(supers[i].fichaTecnica1.poderes[j]) > 0){
+
+                printf("%s", supers[i].fichaTecnica1.poderes[j]);
+
+                if(j < (*ptrNumeroPoderes)-1 && strlen(supers[i].fichaTecnica1.poderes[j + 1]) > 0){
+
+                    printf("\n");
+                }
+            }
+        }
+
+        printf("   ");
+
+        // Debilidades
+        for(int j = 0; j < *ptrNumeroDebilidades; j++){
+
+            if(strlen(supers[i].fichaTecnica1.debilidades[j]) > 0){
+
+                printf("%s", supers[i].fichaTecnica1.debilidades[j]);
+
+                if(j < (*ptrNumeroDebilidades)-1 && strlen(supers[i].fichaTecnica1.debilidades[j + 1]) > 0){
+
+                    printf("\n");
+                }
+            }
+        }
+
+        printf("   %-15s %-10s\n",
+               supers[i].saga,
+               supers[i].estado);
+    }
+
+    printf("=========================================================================================================================================================================\n");
+}*/
+
+void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades) {
+
+
+    printf("\n");
+    // Encabezado
+    printf("%-*s %-*s %-*s %-*s %-*s %-*s %-*s %-*s %-*s\n",
+           W_ID,      "ID",
+           W_NOMBRE,  "NOMBRE",
+           W_PESO,    "PESO",
+           W_ALTURA,  "ALTURA",
+           W_CIUDAD,  "CIUDAD",
+           W_PODERES, "PODERES",
+           W_DEBIL,   "DEBILIDADES",
+           W_SAGA,    "SAGA",
+           W_ESTADO,  "ESTADO");
+
+    // Separador
+    int totalAncho = W_ID + W_NOMBRE + W_PESO + W_ALTURA + W_CIUDAD + W_PODERES + W_DEBIL + W_SAGA + W_ESTADO + 8;
+    for (int k = 0; k < totalAncho; k++){
+        printf("=");
+    }
+    printf("\n");
+
+    for (int i = 0; i < *ptrnumSupers; i++) {
+
+        // Contar poderes y debilidades reales (no vacíos)
+        int numPoderes = 0, numDebil = 0;
+        for (int j = 0; j < *ptrNumeroPoderes; j++)
+            if (strlen(supers[i].fichaTecnica1.poderes[j]) > 0) numPoderes++;
+        for (int j = 0; j < *ptrNumeroDebilidades; j++)
+            if (strlen(supers[i].fichaTecnica1.debilidades[j]) > 0) numDebil++;
+
+        // Filas necesarias = el mayor entre poderes y debilidades (mínimo 1)
+        int filas;
+        if(numPoderes > numDebil){
+            filas=numPoderes;
+        }else{
+            filas = numDebil;
+        }
+        
+        if (filas == 0){
+            filas = 1;
+        }
+        for (int fila = 0; fila < filas; fila++) {
+
+            // Solo en la primera fila se imprimen ID, nombre, peso, altura, ciudad, saga y estado
+            if (fila == 0) {
+                printf("%-*d %-*s %-*.2f %-*.2f %-*s ",
+                       W_ID,     supers[i].id,
+                       W_NOMBRE, supers[i].nombre,
+                       W_PESO,   supers[i].peso,
+                       W_ALTURA, supers[i].altura,
+                       W_CIUDAD, supers[i].fichaTecnica1.ciudadOrigen);
+            } else {
+                // Filas siguientes: celdas vacías para mantener alineación
+                printf("%-*s %-*s %-*s %-*s %-*s ",
+                       W_ID,     "",
+                       W_NOMBRE, "",
+                       W_PESO,   "",
+                       W_ALTURA, "",
+                       W_CIUDAD, "");
+            }
+
+            // Columna PODERES
+            if (fila < numPoderes) {
+                printf("-%-*s ", W_PODERES - 1, supers[i].fichaTecnica1.poderes[fila]);
+            } else {
+                printf("%-*s ", W_PODERES, "");
+            }
+
+            // Columna DEBILIDADES
+            if (fila < numDebil) {
+                printf("-%-*s ", W_DEBIL - 1, supers[i].fichaTecnica1.debilidades[fila]);
+            } else {
+                printf("%-*s ", W_DEBIL, "");
+            }
+
+            // SAGA y ESTADO solo en la primera fila
+            if (fila == 0) {
+                printf("%-*s %-*s",
+                       W_SAGA,   supers[i].saga,
+                       W_ESTADO, supers[i].estado);
+            }
+
+            printf("\n");
+        }
+
+        // Separador entre superhéroes
+        for (int k = 0; k < totalAncho; k++){
+            printf("-");
+        }
+        printf("\n");
+    }
+}
+
+
+
+
+
+int busquedaSuper(struct super supers[], int *ptrnumSupers){
+    char buscado[20];
+    bool encontrado=false;
+    int indiceEncontrado=-1;
+    int opcionBusqueda;
+    int idBuscado;
+
+    do{
+        printf("\n========== BUSQUEDA DE SUPERHEROE ==========\n");
+        printf("Escoja: \n");
+        printf("[1]: Busqueda por Nombre.\n");
+        printf("[2]: Busqueda por ID.\n");
+        printf("[3]: Salir.\n");
+        printf("--------------------------------\n");
+        printf("Escoja: ");
+        scanf("%d", &opcionBusqueda);
+        getchar();
+        switch(opcionBusqueda){
+            case 1:
+                printf("Ingrese el nombre: ");
+                fgets(buscado, 20, stdin);
+                buscado[strcspn(buscado, "\n")]='\0';
+                for(int i=0; i<*ptrnumSupers; i++){
+                    if((strcmp(buscado, supers[i].nombre))==0){
+                        encontrado=true;
+                        indiceEncontrado = i;
+                        break;
+                    }
+                }
+
+                break;
+            case 2:
+                printf("Ingrese el ID: ");
+                scanf("%d", &idBuscado);
+                getchar();
+                for(int i=0; i<*ptrnumSupers; i++){
+                    if(idBuscado == supers[i].id){
+                        encontrado=true;
+                        indiceEncontrado = i;
+                        break;
+                    }
+                }
+                break;
+            case 3:
+                return -1;
+                break;
+
+        }
+        if(encontrado==true){
+            printf("SUPERHEROE ENCONTRDO\n");
+        }else{
+            printf("SUPERHEROE NO ENCONTRADO.\n");
+        }
+    }while(opcionBusqueda != 3);
+    
+
+    return indiceEncontrado;
+
+}
+
+void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades, int *ptrIndiceEncontrado){
+
+    if(*ptrIndiceEncontrado == -1){
+        return;
+    } else{
+        printf("\n============ %s =============\n", supers[*ptrIndiceEncontrado].nombre);
+        printf("ID: %d\n", supers[*ptrIndiceEncontrado].id);
+        printf("NOMBRE: %s\n", supers[*ptrIndiceEncontrado].nombre);
+        printf("PESO: %.2f\n", supers[*ptrIndiceEncontrado].peso);
+        printf("ALTURA: %.2f\n", supers[*ptrIndiceEncontrado].altura);
+        printf("CIUDAD ORIGEN: %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.ciudadOrigen);
+        printf("PODERES:\n");
+        for(int j=0; j<*ptrNumeroPoderes; j++){
+            printf("    - %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.poderes[j]);
             
         }
         printf("DEBILIDADES:\n");
         for(int j=0; j<*ptrNumeroDebilidades; j++){
-            printf("    - %s\n", supers[i].fichaTecnica1.debilidades[j]);
+            printf("    - %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.debilidades[j]);
         }
-        printf("ARCHIENEMIGO: %s\n", supers[i].fichaTecnica1.archienemigo);
-        printf("SAGA: %s\n", supers[i].saga);
-        printf("ESTADO | VIGENTE: %s\n", supers[i].estado);
+        printf("ARCHIENEMIGO: %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.archienemigo);
+        printf("SAGA: %s\n", supers[*ptrIndiceEncontrado].saga);
+        printf("ESTADO | VIGENTE: %s\n", supers[*ptrIndiceEncontrado].estado);
         printf("-------------------------------------\n");
+    }
+    
         
+}
+
+
+void actualizarEstado (struct super supers[], int *ptrnumSupers){
+    int indice;
+    int opcionEstado;
+    printf("\n============== ACTUALIZAR ESTADO DE SUPERHEROE ==============\n");
+    indice = busquedaSuper(supers, ptrnumSupers);
+    if(indice == -1){
+        return;
+    }else{
+        printf("ESTADO ACTUAL | VIGENCIA: %s\n", supers[indice].estado);
+        printf("[1]: Cambiar Estado.\n");
+        printf("[2]: Salir.\n");
+        scanf("%d", &opcionEstado);
+        getchar();
+        switch(opcionEstado){
+            case 1:
+                if((strcmp(supers[indice].estado, "SI"))==0){
+                    strcpy(supers[indice].estado, "NO");
+                } else{
+                    strcpy(supers[indice].estado, "SI");
+                }
+                break;
+            case 2:
+                return;
+                break;
+        }
     }
 }
+

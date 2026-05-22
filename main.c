@@ -26,6 +26,9 @@ void registrarSuper(struct super supers[], int *ptrSupers, int *ptrNumeroPoderes
 void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
 void etiquetaInicial();
 int menuPrincipal(int *ptrOpcionmenuPrincipal);
+int busquedaSuper(struct super supers[], int *ptrnumSupers);
+void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades, int *ptrIndiceEncontrado);
+void actualizarEstado (struct super supers[], int *ptrnumSupers);
 
 int main(){
     int numeroPoderes=0;
@@ -44,6 +47,10 @@ int main(){
     int opcionMenuPrincipal=0;
     int *ptrOpcionmenuPrincipal;
     ptrOpcionmenuPrincipal=&opcionMenuPrincipal;
+
+    int indiceEncontrado;
+    int *ptrIndiceEncontrado;
+    ptrIndiceEncontrado=&indiceEncontrado;
     
 
     
@@ -61,6 +68,13 @@ int main(){
         switch(opcionMenuPrincipal){
             case 1:
                 mostrarDatos(supers, ptrnumSupers, ptrNumeroPoderes, ptrNumeroDebilidades);
+                break;
+            case 2:
+                *ptrIndiceEncontrado= busquedaSuper(supers, ptrnumSupers);
+                mostrarDatosIndividuales(supers, ptrnumSupers, ptrNumeroPoderes, ptrNumeroDebilidades, ptrIndiceEncontrado);
+                break;
+            case 3:
+                actualizarEstado (supers, ptrnumSupers);
                 break;
             case 5:
                 printf("\n======================\n");

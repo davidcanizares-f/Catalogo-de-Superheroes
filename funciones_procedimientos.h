@@ -6,6 +6,15 @@
 #include <string.h>
 
 
+    #define W_ID      5
+    #define W_NOMBRE  20
+    #define W_PESO    8
+    #define W_ALTURA  8
+    #define W_CIUDAD  15
+    #define W_PODERES 25
+    #define W_DEBIL   25
+    #define W_SAGA    15
+    #define W_ESTADO  10
 
 
 struct fichaTecnica{
@@ -32,5 +41,8 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
 void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
 void etiquetaInicial();
 int menuPrincipal(int *ptrOpcionmenuPrincipal);
+int busquedaSuper(struct super supers[], int *ptrnumSupers);
+void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades, int *ptrIndiceEncontrado);
+void actualizarEstado (struct super supers[], int *ptrnumSupers);
 
 #endif
