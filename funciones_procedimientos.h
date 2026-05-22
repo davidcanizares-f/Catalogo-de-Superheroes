@@ -30,5 +30,7 @@ struct fichaTecnica{
 
 void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
 void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
+void etiquetaInicial();
+int menuPrincipal(int *ptrOpcionmenuPrincipal);
 
 #endif

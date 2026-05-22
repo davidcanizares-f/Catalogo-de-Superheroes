@@ -3,6 +3,16 @@
 #include <string.h>
 #include "funciones_procedimientos.h"
 
+
+
+
+void etiquetaInicial(){
+    printf("\n===========================\n");
+    printf("- REGISTRO DE SUPERHEROES -\n");
+    printf("===========================\n");
+}
+
+
 void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades){
     
     for(int i=0; i<*ptrnumSupers; i++){
@@ -16,9 +26,30 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
         int estado;
         float peso;
         float altura;
+        int id;
         
-        supers[i].id=i+1; 
-        printf("Superheroe %d\n", i+1);
+ 
+        printf("\n<<< SUPERHEROE %d >>>\n", i+1);
+        printf("------------------------------\n");
+
+
+        printf("> ID: ");
+        scanf("%d", &id);
+        getchar();
+        
+        
+        for(int i=0; i<*ptrnumSupers; i++){
+            while(supers[i].id == id){
+                printf("[INVALIDO] ID ya registrado.\n");
+                printf("> ID: ");
+                scanf("%d", &id);
+                getchar();
+            }
+        }
+        
+        supers[i].id=id;
+
+        
         printf("> Nombre: ");
         fgets(nombre, 100, stdin);
         nombre[strcspn(nombre, "\n")]='\0';
@@ -47,7 +78,6 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
             fgets(poderes[j], 80, stdin);
             poderes[j][strcspn(poderes[j], "\n")]='\0';
             strcpy(supers[i].fichaTecnica1.poderes[j], poderes[j]);
-            printf("\n");
         }
 
         printf("> Debilidades: \n");
@@ -59,7 +89,6 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
             fgets(debilidades[j], 80, stdin);
             debilidades[j][strcspn(debilidades[j], "\n")]='\0';
             strcpy(supers[i].fichaTecnica1.debilidades[j], debilidades[j]);
-            printf("\n");
         }
 
         printf("> Archienemigo: ");
@@ -73,9 +102,9 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
         strcpy(supers[i].saga, saga);
         
         printf("> Estado (Vigente): \n");
-        printf("    1: Si.\n");
-        printf("    0: No.");
-        printf("Estado: ");
+        printf("    [1]: Si.\n");
+        printf("    [0]: No.\n");
+        printf("    Vigente: ");
         scanf("%d", &estado);
         if(estado==1){
             strcpy(supers[i].estado, vigencia[0]);
@@ -92,14 +121,32 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
 }
 
 
-void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades){
+int menuPrincipal(int *ptrOpcionmenuPrincipal){
+    
+    printf("\n==============================\n");
+    printf("\n<<<<<< MENU DE ACCIONES >>>>>\n");
+    printf("\n==============================\n");
+    printf("[1]: Mostrar lista de Superheroes.\n");
+    printf("[2]: Buscar Superheroe.\n");
+    printf("[3]: Actualizar estado de Superheroe.\n");
+    printf("[4]: Eliminar registro de Superheroe.\n");
+    printf("[5]: Salir.\n");
+    printf("-----------------------------------\n");
+    printf("Escoja una opcion: ");
+    scanf("%d", ptrOpcionmenuPrincipal);
+
+    return *ptrOpcionmenuPrincipal;
+}
+
+void mostrarDatosTabla(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades){
     for(int i=0; i<*ptrnumSupers; i++){
-        printf("ID: %d\n", supers[i].id);
-        printf("NOMBRE: %s\n", supers[i].nombre);
-        printf("PESO: %.2f\n", supers[i].peso);
-        printf("ALTURA: %.2f\n", supers[i].altura);
-        printf("CIUDAD ORIGEN: %s\n", supers[i].fichaTecnica1.ciudadOrigen);
-        printf("PODERES:\n");
+        printf("\t");
+        printf("ID: %d", supers[i].id);
+        printf("\tNOMBRE: %s", supers[i].nombre);
+        printf("\tPESO: %.2f kg", supers[i].peso);
+        printf("\tALTURA: %.2f m", supers[i].altura);
+        printf("\tCIUDAD ORIGEN: %s", supers[i].fichaTecnica1.ciudadOrigen);
+        printf("\tPODERES:");
         for(int j=0; j<*ptrNumeroPoderes; j++){
             printf("    - %s\n", supers[i].fichaTecnica1.poderes[j]);
             

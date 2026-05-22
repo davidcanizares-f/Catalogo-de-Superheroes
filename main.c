@@ -24,6 +24,8 @@ Autores:
 
 void registrarSuper(struct super supers[], int *ptrSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
 void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
+void etiquetaInicial();
+int menuPrincipal(int *ptrOpcionmenuPrincipal);
 
 int main(){
     int numeroPoderes=0;
@@ -38,18 +40,40 @@ int main(){
     int numeroSupers=0;
     int *ptrnumSupers;
     ptrnumSupers=&numeroSupers;    
+
+    int opcionMenuPrincipal=0;
+    int *ptrOpcionmenuPrincipal;
+    ptrOpcionmenuPrincipal=&opcionMenuPrincipal;
     
 
     
 
-
-    printf("Ingrese el numero de Superheroes: ");
+    etiquetaInicial();
+    printf("\nIngrese el numero de Superheroes a registrar: ");
     scanf("%d", ptrnumSupers);
     getchar();
+    
     struct super supers[*ptrnumSupers];
-
     registrarSuper(supers, ptrnumSupers, ptrNumeroPoderes, ptrNumeroDebilidades);
-    mostrarDatos(supers, ptrnumSupers, ptrNumeroPoderes, ptrNumeroDebilidades);
+    
+    do{
+        opcionMenuPrincipal=menuPrincipal(ptrOpcionmenuPrincipal);
+        switch(opcionMenuPrincipal){
+            case 1:
+                mostrarDatos(supers, ptrnumSupers, ptrNumeroPoderes, ptrNumeroDebilidades);
+                break;
+            case 5:
+                printf("\n======================\n");
+                printf("  SALISTE DEL PROGRAMA\n");
+                printf("=========================\n");
+                break;
+        }
+
+    }while(opcionMenuPrincipal!=5);
+    
+
+    
+    
 
     
     
