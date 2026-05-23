@@ -29,6 +29,7 @@ int menuPrincipal(int *ptrOpcionmenuPrincipal);
 int busquedaSuper(struct super supers[], int *ptrnumSupers);
 void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades, int *ptrIndiceEncontrado);
 void actualizarEstado (struct super supers[], int *ptrnumSupers);
+void eliminarRegistro(struct super supers[], int *ptrnumSupers);
 
 int main(){
     int numeroPoderes=0;
@@ -48,7 +49,7 @@ int main(){
     int *ptrOpcionmenuPrincipal;
     ptrOpcionmenuPrincipal=&opcionMenuPrincipal;
 
-    int indiceEncontrado;
+    int indiceEncontrado=0;
     int *ptrIndiceEncontrado;
     ptrIndiceEncontrado=&indiceEncontrado;
     
@@ -57,7 +58,12 @@ int main(){
 
     etiquetaInicial();
     printf("\nIngrese el numero de Superheroes a registrar: ");
-    scanf("%d", ptrnumSupers);
+    while((scanf("%d", ptrnumSupers) !=1) || (*ptrnumSupers)<=0 || (*ptrnumSupers) > 10){
+        printf("[ERROR]: DATO INVALIDO. INGRESE NUEVAMENTE.\n");
+        while(getchar()!='\n');
+        printf("\nIngrese el numero de Superheroes a registrar: ");
+
+    }
     getchar();
     
     struct super supers[*ptrnumSupers];
@@ -70,11 +76,14 @@ int main(){
                 mostrarDatos(supers, ptrnumSupers, ptrNumeroPoderes, ptrNumeroDebilidades);
                 break;
             case 2:
-                *ptrIndiceEncontrado= busquedaSuper(supers, ptrnumSupers);
+                (*ptrIndiceEncontrado)= busquedaSuper(supers, ptrnumSupers);
                 mostrarDatosIndividuales(supers, ptrnumSupers, ptrNumeroPoderes, ptrNumeroDebilidades, ptrIndiceEncontrado);
                 break;
             case 3:
                 actualizarEstado (supers, ptrnumSupers);
+                break;
+            case 4:
+                eliminarRegistro(supers, ptrnumSupers);
                 break;
             case 5:
                 printf("\n======================\n");

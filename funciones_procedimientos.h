@@ -44,5 +44,6 @@ int menuPrincipal(int *ptrOpcionmenuPrincipal);
 int busquedaSuper(struct super supers[], int *ptrnumSupers);
 void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades, int *ptrIndiceEncontrado);
 void actualizarEstado (struct super supers[], int *ptrnumSupers);
+void eliminarRegistro(struct super supers[], int *ptrnumSupers);
 
 #endif
