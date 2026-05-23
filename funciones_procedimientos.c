@@ -248,7 +248,7 @@ void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPodere
 
         truncar(nombreTrunc, supers[i].nombre, W_NOMBRE);
         truncar(ciudadTrunc, supers[i].fichaTecnica1.ciudadOrigen, W_CIUDAD);
-        truncar(sagaTrunc,   supers[i].saga, W_SAGA);
+        truncar(sagaTrunc, supers[i].saga, W_SAGA);
         truncar(estadoTrunc, supers[i].estado, W_ESTADO);
 
         // Contar poderes y debilidades reales (no vacíos)

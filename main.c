@@ -18,7 +18,7 @@ Autores:
 #include <string.h>
 #include <stdbool.h>
 #include "funciones_procedimientos.h"
-#include "funciones_procedimientos.c"
+#include "funciones_procedimientos.c" /////////borrar para la version final
 
 
 
@@ -95,12 +95,5 @@ int main(){
 
     }while(opcionMenuPrincipal!=5);
     
-
-    
-    
-
-    
-    
-
     return 0;
 }
