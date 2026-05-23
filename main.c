@@ -20,9 +20,10 @@ Autores:
 #include "funciones_procedimientos.h"
 #include "funciones_procedimientos.c"
 
-//si esta bien
+
 
 void registrarSuper(struct super supers[], int *ptrSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
+void truncar(char *destino, const char *cadena, int maxAncho);
 void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
 void etiquetaInicial();
 int menuPrincipal(int *ptrOpcionmenuPrincipal);

@@ -44,9 +44,14 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
         
         for(int i=0; i<*ptrnumSupers; i++){
             while(supers[i].id == id){
-                printf("[INVALIDO] ID ya registrado.\n");
-                printf("> ID: ");
-                scanf("%d", &id);
+                printf("\n[INVALIDO] ID ya registrado.\n");
+                printf("> ID (MAXIMO 5 CARACTERES): ");
+                while((scanf("%d", &id) !=1) || (id)<=0 || (id)>=100000){
+                    printf("\n[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
+                    while(getchar()!='\n');
+                    printf("> ID (MAXIMO 5 CARACTERES): ");
+
+                }
                 getchar();
             }
         }
@@ -60,46 +65,76 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
         strcpy(supers[i].nombre, nombre);
 
         printf("> Peso (kg): ");
-        scanf("%f", &peso);
+        while((scanf("%f", &peso) !=1) || (peso)<=0){
+            printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
+            while(getchar()!='\n');
+            printf("> Peso (kg): ");
+
+        }
+        getchar();
+
         supers[i].peso=peso;
 
         printf("> Altura (m): ");
-        scanf("%f", &altura);
+        while((scanf("%f", &altura) !=1) || (altura)<=0){
+            printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
+            while(getchar()!='\n');
+            printf("> Altura (m): ");
+
+        }
         supers[i].altura=altura;
 
-        printf("> Ciudad de Origen: ");
         while(getchar()!='\n');
+        printf("> Ciudad de Origen: ");
         fgets(ciudadOrigen, 100, stdin);
         ciudadOrigen[strcspn(ciudadOrigen, "\n")]='\0';
         strcpy(supers[i].fichaTecnica1.ciudadOrigen, ciudadOrigen);
 
         printf("> Poderes: \n");
         printf("\tCantidad de poderes: ");
-        scanf("%d", ptrNumeroPoderes);
+        while((scanf("%d", ptrNumeroPoderes) !=1) || (*ptrNumeroPoderes)<=0){
+            printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
+            while(getchar()!='\n');
+            printf("\tCantidad de poderes: ");
+
+        }
         getchar();
+
+
         for(int j=0; j<*ptrNumeroPoderes; j++){
+            
             printf("\tPoder %d: ", j+1 );
             fgets(poderes[j], 80, stdin);
             poderes[j][strcspn(poderes[j], "\n")]='\0';
             strcpy(supers[i].fichaTecnica1.poderes[j], poderes[j]);
         }
 
+        
         printf("> Debilidades: \n");
         printf("\tCantidad de debilidades: ");
-        scanf("%d", ptrNumeroDebilidades);
+        while((scanf("%d", ptrNumeroDebilidades) !=1) || (*ptrNumeroDebilidades)<=0){
+            printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
+            while(getchar()!='\n');
+            printf("\tCantidad de debilidades: ");
+
+        }
         getchar();
+
         for(int j=0; j<*ptrNumeroDebilidades; j++){
+            
             printf("\tDebilidad %d: ", j+1 );
             fgets(debilidades[j], 80, stdin);
             debilidades[j][strcspn(debilidades[j], "\n")]='\0';
             strcpy(supers[i].fichaTecnica1.debilidades[j], debilidades[j]);
         }
 
+        
         printf("> Archienemigo: ");
         fgets(archienemigo, 100, stdin);
         archienemigo[strcspn(archienemigo, "\n")]='\0';
         strcpy(supers[i].fichaTecnica1.archienemigo, archienemigo);
 
+        
         printf("> Saga: ");
         fgets(saga, 100, stdin);
         saga[strcspn(saga, "\n")]='\0';
@@ -109,13 +144,22 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
         printf("    [1]: Si.\n");
         printf("    [0]: No.\n");
         printf("    Vigente: ");
-        scanf("%d", &estado);
+        while((scanf("%d", &estado) !=1) || estado>1 || estado<0){
+            printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
+            while(getchar()!='\n');
+            printf("> Estado (Vigente): \n");
+            printf("    [1]: Si.\n");
+            printf("    [0]: No.\n");
+            printf("    Vigente: ");
+
+        }
+
         if(estado==1){
             strcpy(supers[i].estado, vigencia[0]);
         }else{
             strcpy(supers[i].estado, vigencia[1]);
         }
-        while(getchar()!='\n');
+        
         
         
     }
@@ -128,7 +172,7 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
 int menuPrincipal(int *ptrOpcionmenuPrincipal){
     
     printf("\n==============================\n");
-    printf("\n<<<<<< MENU DE ACCIONES >>>>>\n");
+    printf("<<<<<< MENU DE ACCIONES >>>>>");
     printf("\n==============================\n");
     printf("[1]: Mostrar lista de Superheroes.\n");
     printf("[2]: Buscar Superheroe.\n");
@@ -137,32 +181,46 @@ int menuPrincipal(int *ptrOpcionmenuPrincipal){
     printf("[5]: Salir.\n");
     printf("-----------------------------------\n");
     printf("Escoja una opcion: ");
-    scanf("%d", ptrOpcionmenuPrincipal);
+    
+    while(scanf("%d", ptrOpcionmenuPrincipal)!=1 || (*ptrOpcionmenuPrincipal)>5 || *ptrOpcionmenuPrincipal<1){
+            printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
+            while(getchar()!='\n');
+            printf("\n==============================\n");
+            printf("<<<<<< MENU DE ACCIONES >>>>>");
+            printf("\n==============================\n");
+            printf("[1]: Mostrar lista de Superheroes.\n");
+            printf("[2]: Buscar Superheroe.\n");
+            printf("[3]: Actualizar estado de Superheroe.\n");
+            printf("[4]: Eliminar registro de Superheroe.\n");
+            printf("[5]: Salir.\n");
+            printf("-----------------------------------\n");
+            printf("Escoja una opcion: ");
+
+    }
 
     return *ptrOpcionmenuPrincipal;
 }
 
-// Función auxiliar para truncar strings
-void truncar(char *dest, const char *src, int maxAncho) {
-    if ((int)strlen(src) > maxAncho) {
-        snprintf(dest, maxAncho + 1, "%.*s", maxAncho - 3, src);
-        strcat(dest, "...");
+// Trunca src en maxAncho caracteres, añadiendo "..." si se excede
+void truncar(char *destino, const char *cadena, int maxAncho) {
+    if ((int)strlen(cadena) > maxAncho) {
+        snprintf(destino, maxAncho - 2, "%s", cadena); // copia maxAncho-3 chars
+        strcat(destino, "...");
     } else {
-        strncpy(dest, src, maxAncho + 1);
+        snprintf(destino, maxAncho + 1, "%s", cadena);
     }
 }
-
-
-
 
 void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades) {
 
     int totalAncho = W_ID + W_NOMBRE + W_PESO + W_ALTURA + W_CIUDAD + W_PODERES + W_DEBIL + W_SAGA + W_ESTADO + 8;
+
     printf("\n");
     for (int k = 0; k < totalAncho; k++){
         printf("=");
-    }
+    } 
     printf("\n");
+
     // Encabezado
     printf("%-*s %-*s %-*s %-*s %-*s %-*s %-*s %-*s %-*s\n",
            W_ID,      "ID",
@@ -175,14 +233,23 @@ void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPodere
            W_SAGA,    "SAGA",
            W_ESTADO,  "VIGENTE");
 
-    // Separador
-    
     for (int k = 0; k < totalAncho; k++){
         printf("=");
     }
     printf("\n");
 
     for (int i = 0; i < *ptrnumSupers; i++) {
+
+        // Buffers truncados para campos fijos
+        char nombreTrunc[W_NOMBRE + 1];
+        char ciudadTrunc[W_CIUDAD + 1];
+        char sagaTrunc[W_SAGA + 1];
+        char estadoTrunc [W_ESTADO + 1];
+
+        truncar(nombreTrunc, supers[i].nombre, W_NOMBRE);
+        truncar(ciudadTrunc, supers[i].fichaTecnica1.ciudadOrigen, W_CIUDAD);
+        truncar(sagaTrunc,   supers[i].saga, W_SAGA);
+        truncar(estadoTrunc, supers[i].estado, W_ESTADO);
 
         // Contar poderes y debilidades reales (no vacíos)
         int numPoderes = 0, numDebil = 0;
@@ -191,39 +258,24 @@ void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPodere
         for (int j = 0; j < *ptrNumeroDebilidades; j++)
             if (strlen(supers[i].fichaTecnica1.debilidades[j]) > 0) numDebil++;
 
-        // Filas necesarias = el mayor entre poderes y debilidades (mínimo 1)
         int filas;
         if(numPoderes > numDebil){
             filas=numPoderes;
         }else{
-            filas = numDebil;
+            filas=numDebil;
         }
-        
-        if (filas == 0){
-            filas = 1;
-        }
+        if (filas == 0) filas = 1;
+
         for (int fila = 0; fila < filas; fila++) {
 
-            // Solo en la primera fila se imprimen ID, nombre, peso, altura, ciudad, saga y estado
             if (fila == 0) {
-                printf("%-*d",
-                       W_ID,     supers[i].id);
-                       //W_NOMBRE, supers[i].nombre,
-                       //W_PESO,   supers[i].peso,
-                       //W_ALTURA, supers[i].altura,
-                       //W_CIUDAD, supers[i].fichaTecnica1.ciudadOrigen);
-                if(strlen(supers[i].nombre)>17){
-                    printf("%-*.17s...", W_NOMBRE, supers[i].nombre);
-                }
-                printf("%-*.2f %-*.2f %-*s ",
+                printf("%-*d %-*s %-*.2f %-*.2f %-*s ",
+                       W_ID,     supers[i].id,
+                       W_NOMBRE, nombreTrunc,
                        W_PESO,   supers[i].peso,
                        W_ALTURA, supers[i].altura,
-                       W_CIUDAD, supers[i].fichaTecnica1.ciudadOrigen);
-                
-                
-                
+                       W_CIUDAD, ciudadTrunc);
             } else {
-                // Filas siguientes: celdas vacías para mantener alineación
                 printf("%-*s %-*s %-*s %-*s %-*s ",
                        W_ID,     "",
                        W_NOMBRE, "",
@@ -234,23 +286,25 @@ void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPodere
 
             // Columna PODERES
             if (fila < numPoderes) {
-                printf("-%-*s ", W_PODERES - 1, supers[i].fichaTecnica1.poderes[fila]);
+                char poderTrunc[W_PODERES + 1];
+                truncar(poderTrunc, supers[i].fichaTecnica1.poderes[fila], W_PODERES - 1); // -1 por el guion
+                printf("-%-*s ", W_PODERES - 1, poderTrunc);
             } else {
                 printf("%-*s ", W_PODERES, "");
             }
 
             // Columna DEBILIDADES
             if (fila < numDebil) {
-                printf("-%-*s ", W_DEBIL - 1, supers[i].fichaTecnica1.debilidades[fila]);
+                char debilTrunc[W_DEBIL + 1];
+                truncar(debilTrunc, supers[i].fichaTecnica1.debilidades[fila], W_DEBIL - 1); // -1 por el guion
+                printf("-%-*s ", W_DEBIL - 1, debilTrunc);
             } else {
                 printf("%-*s ", W_DEBIL, "");
             }
 
             // SAGA y ESTADO solo en la primera fila
             if (fila == 0) {
-                printf("%-*s %-*s",
-                       W_SAGA,   supers[i].saga,
-                       W_ESTADO, supers[i].estado);
+                printf("%-*s %-*s", W_SAGA, sagaTrunc, W_ESTADO, estadoTrunc);
             }
 
             printf("\n");
@@ -260,6 +314,7 @@ void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPodere
         for (int k = 0; k < totalAncho; k++){
             printf("-");
         }
+        
         printf("\n");
     }
 }
@@ -282,8 +337,20 @@ int busquedaSuper(struct super supers[], int *ptrnumSupers){
         printf("[3]: Salir.\n");
         printf("--------------------------------\n");
         printf("Escoja: ");
-        scanf("%d", &opcionBusqueda);
+        
+        while(scanf("%d", &opcionBusqueda)!=1 || (opcionBusqueda)>3 || opcionBusqueda<1){
+            printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
+            while(getchar()!='\n');
+            printf("\n========== BUSQUEDA DE SUPERHEROE ==========\n");
+            printf("[1]: Busqueda por Nombre.\n");
+            printf("[2]: Busqueda por ID.\n");
+            printf("[3]: Salir.\n");
+            printf("--------------------------------\n");
+            printf("Escoja: ");
+
+        }
         getchar();
+
         switch(opcionBusqueda){
             case 1:
                 printf("Ingrese el nombre: ");
@@ -299,8 +366,14 @@ int busquedaSuper(struct super supers[], int *ptrnumSupers){
                 break;
             case 2:
                 printf("Ingrese el ID: ");
-                scanf("%d", &idBuscado);
-                getchar();
+                while(scanf("%d", &idBuscado)!=1 || idBuscado<0){
+                    printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
+                    while(getchar()!='\n');
+                    printf("Ingrese el ID: ");
+
+                }
+                
+
                 for(int i=0; i<*ptrnumSupers; i++){
                     if((idBuscado == supers[i].id) && encontrado==false){
                         encontrado=true;
@@ -332,7 +405,7 @@ void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers, int *ptr
         return;
     } else{
         printf("\n=========================\n");
-        printf("           %s ", supers[*ptrIndiceEncontrado].nombre);
+        printf("          %s ", supers[*ptrIndiceEncontrado].nombre);
         printf("\n=========================\n");
         printf("> ID: %d\n", supers[*ptrIndiceEncontrado].id);
         printf("> NOMBRE: %s\n", supers[*ptrIndiceEncontrado].nombre);
@@ -366,13 +439,27 @@ void actualizarEstado (struct super supers[], int *ptrnumSupers){
     if(indice < 0){
         return;
     }else{
+        printf("----------------------------\n");
         printf("\nESTADO ACTUAL | VIGENTE: %s\n", supers[indice].estado);
+        printf("-------------------------\n");
         printf("[1]: Cambiar Estado.\n");
         printf("[2]: Salir.\n");
         printf("-------------------------\n");
         printf("Escoja: ");
-        scanf("%d", &opcionEstado);
-        getchar();
+        
+        while(scanf("%d", &opcionEstado)!=1 || opcionEstado<1 || opcionEstado > 2){
+            printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
+            while(getchar()!='\n');
+            printf("----------------------------\n");
+            printf("\nESTADO ACTUAL | VIGENTE: %s\n", supers[indice].estado);
+            printf("-------------------------\n");
+            printf("[1]: Cambiar Estado.\n");
+            printf("[2]: Salir.\n");
+            printf("-------------------------\n");
+            printf("Escoja: ");
+        }
+        
+
         switch(opcionEstado){
             case 1:
                 if((strcmp(supers[indice].estado, "SI"))==0){
