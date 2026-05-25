@@ -585,7 +585,7 @@ void eliminarRegistro(struct super supers[], int *ptrnumSupers) {
     if (indice < 0) return;
 
     /* Desplaza los elementos posteriores una posición hacia la izquierda */
-    for (int i = indice; i < indice - 1; i++) {
+    for (int i = indice; i < *ptrnumSupers - 1; i++) {
         supers[i] = supers[i + 1];
     }
 
