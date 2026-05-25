@@ -35,8 +35,7 @@ void etiquetaInicial() {
  * Valida cada campo antes de almacenarlo, repitiendo la solicitud en caso de
  * entrada inválida. También verifica que el ID no esté duplicado.
  */
-void registrarSuper(struct super supers[], int *ptrnumSupers,
-                    int *ptrNumeroPoderes, int *ptrNumeroDebilidades) {
+void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades) {
 
     for (int i = 0; i < *ptrnumSupers; i++) {
 
@@ -268,12 +267,10 @@ void truncar(char *destino, const char *cadena, int maxAncho) {
  *   ptrNumeroPoderes     – Número de poderes por superhéroe.
  *   ptrNumeroDebilidades – Número de debilidades por superhéroe.
  */
-void mostrarDatos(struct super supers[], int *ptrnumSupers,
-                  int *ptrNumeroPoderes, int *ptrNumeroDebilidades) {
+void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades) {
 
     /* Calcula el ancho total de la tabla sumando columnas y separadores */
-    int totalAncho = W_ID + W_NOMBRE + W_PESO + W_ALTURA + W_CIUDAD +
-                     W_PODERES + W_DEBIL + W_SAGA + W_ESTADO + 8;
+    int totalAncho = W_ID + W_NOMBRE + W_PESO + W_ALTURA + W_CIUDAD + W_PODERES + W_DEBIL + W_SAGA + W_ESTADO + 8;
 
     /* ── Línea superior ── */
     printf("\n");
@@ -448,10 +445,12 @@ int busquedaSuper(struct super supers[], int *ptrnumSupers) {
         }
 
         /* Informa si se encontró o no */
-        if (encontrado)
+        if (encontrado){
             printf("\n>>>> SUPERHEROE ENCONTRADO <<<<\n");
-        else
+        }else{
             printf("\n>>>> SUPERHEROE NO ENCONTRADO <<<<\n");
+        }
+            
 
     } while (opcionBusqueda != 3 && !encontrado); /* Repite si no encontró */
 
@@ -470,9 +469,7 @@ int busquedaSuper(struct super supers[], int *ptrnumSupers) {
  *   ptrNumeroDebilidades  – Cantidad de debilidades a listar.
  *   ptrIndiceEncontrado   – Índice del superhéroe a mostrar (-1 si ninguno).
  */
-void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers,
-                               int *ptrNumeroPoderes, int *ptrNumeroDebilidades,
-                               int *ptrIndiceEncontrado) {
+void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades, int *ptrIndiceEncontrado) {
 
     /* Si el índice es negativo, no hay nada que mostrar */
     if (*ptrIndiceEncontrado < 0) {
@@ -482,24 +479,28 @@ void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers,
     printf("\n=========================\n");
     printf("          %s ", supers[*ptrIndiceEncontrado].nombre);
     printf("\n=========================\n");
-    printf("> ID: %d\n",             supers[*ptrIndiceEncontrado].id);
-    printf("> NOMBRE: %s\n",         supers[*ptrIndiceEncontrado].nombre);
-    printf("> PESO: %.2f\n",          supers[*ptrIndiceEncontrado].peso);
-    printf("> ALTURA: %.2f\n",        supers[*ptrIndiceEncontrado].altura);
-    printf("> CIUDAD ORIGEN: %s\n",  supers[*ptrIndiceEncontrado].fichaTecnica1.ciudadOrigen);
+    printf("> ID: %d\n", supers[*ptrIndiceEncontrado].id);
+    printf("> NOMBRE: %s\n", supers[*ptrIndiceEncontrado].nombre);
+    printf("> PESO: %.2f\n", supers[*ptrIndiceEncontrado].peso);
+    printf("> ALTURA: %.2f\n", supers[*ptrIndiceEncontrado].altura);
+    printf("> CIUDAD ORIGEN: %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.ciudadOrigen);
 
     /* Lista todos los poderes registrados */
     printf("> PODERES:\n");
-    for (int j = 0; j < *ptrNumeroPoderes; j++)
+    for (int j = 0; j < *ptrNumeroPoderes; j++){
         printf("    - %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.poderes[j]);
+    }
+        
 
     /* Lista todas las debilidades registradas */
     printf("> DEBILIDADES:\n");
-    for (int j = 0; j < *ptrNumeroDebilidades; j++)
+    for (int j = 0; j < *ptrNumeroDebilidades; j++){
         printf("    - %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.debilidades[j]);
+    }
+        
 
-    printf("> ARCHIENEMIGO: %s\n",   supers[*ptrIndiceEncontrado].fichaTecnica1.archienemigo);
-    printf("> SAGA: %s\n",           supers[*ptrIndiceEncontrado].saga);
+    printf("> ARCHIENEMIGO: %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.archienemigo);
+    printf("> SAGA: %s\n", supers[*ptrIndiceEncontrado].saga);
     printf("> ESTADO | VIGENTE: %s\n", supers[*ptrIndiceEncontrado].estado);
     printf("-------------------------------------\n");
 }
@@ -548,13 +549,14 @@ void actualizarEstado(struct super supers[], int *ptrnumSupers) {
     switch (opcionEstado) {
         case 1:
             /* Invierte el estado actual */
-            if (strcmp(supers[indice].estado, "SI") == 0)
+            if (strcmp(supers[indice].estado, "SI") == 0){
                 strcpy(supers[indice].estado, "NO");
-            else
+            }else{
                 strcpy(supers[indice].estado, "SI");
+            }
+                
 
-            printf("<<<< ESTADO DE SUPERHEROE CAMBIADO A: VIGENTE -> '%s' >>>>\n",
-                   supers[indice].estado);
+            printf("<<<< ESTADO DE SUPERHEROE CAMBIADO A: VIGENTE -> '%s' >>>>\n", supers[indice].estado);
             break;
 
         case 2:
@@ -567,9 +569,6 @@ void actualizarEstado(struct super supers[], int *ptrnumSupers) {
  * eliminarRegistro
  * Localiza un superhéroe mediante busquedaSuper() y lo elimina del arreglo
  * desplazando los elementos posteriores una posición hacia atrás.
- *
- * Nota: el bucle de desplazamiento tiene un error de condición en el original
- * (i < indice-1 debería ser i < *ptrnumSupers-1); se mantiene aquí tal cual.
  *
  * Parámetros:
  *   supers[]     – Arreglo de superhéroes.
@@ -585,7 +584,7 @@ void eliminarRegistro(struct super supers[], int *ptrnumSupers) {
     if (indice < 0) return;
 
     /* Desplaza los elementos posteriores una posición hacia la izquierda */
-    for (int i = indice; i < *ptrnumSupers - 1; i++) {
+    for (int i = indice; i < (*ptrnumSupers) - 1; i++) {
         supers[i] = supers[i + 1];
     }
 

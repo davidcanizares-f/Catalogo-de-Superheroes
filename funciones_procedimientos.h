@@ -12,15 +12,15 @@
 #include <string.h>
 
 /* ─── Anchos de columna para la tabla de visualización ─── */
-#define W_ID      5   /* Ancho de la columna ID              */
+#define W_ID 5   /* Ancho de la columna ID              */
 #define W_NOMBRE  20  /* Ancho de la columna Nombre          */
-#define W_PESO    8   /* Ancho de la columna Peso            */
-#define W_ALTURA  8   /* Ancho de la columna Altura          */
-#define W_CIUDAD  15  /* Ancho de la columna Ciudad de Origen*/
+#define W_PESO 8   /* Ancho de la columna Peso            */
+#define W_ALTURA 8   /* Ancho de la columna Altura          */
+#define W_CIUDAD 15  /* Ancho de la columna Ciudad de Origen*/
 #define W_PODERES 25  /* Ancho de la columna Poderes         */
-#define W_DEBIL   25  /* Ancho de la columna Debilidades     */
-#define W_SAGA    15  /* Ancho de la columna Saga            */
-#define W_ESTADO  10  /* Ancho de la columna Estado/Vigente  */
+#define W_DEBIL 25  /* Ancho de la columna Debilidades     */
+#define W_SAGA 15  /* Ancho de la columna Saga            */
+#define W_ESTADO 10  /* Ancho de la columna Estado/Vigente  */
 
 
 /*
@@ -59,15 +59,13 @@ struct super {
 void etiquetaInicial();
 
 /* Registra los datos de todos los superhéroes ingresados por el usuario */
-void registrarSuper(struct super supers[], int *ptrnumSupers,
-                    int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
+void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
 
 /* Trunca una cadena al ancho máximo indicado, añadiendo "..." si se excede */
 void truncar(char *destino, const char *cadena, int maxAncho);
 
 /* Muestra todos los superhéroes registrados en formato de tabla */
-void mostrarDatos(struct super supers[], int *ptrnumSupers,
-                  int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
+void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades);
 
 /* Despliega el menú principal y retorna la opción elegida */
 int menuPrincipal(int *ptrOpcionmenuPrincipal);
@@ -76,9 +74,7 @@ int menuPrincipal(int *ptrOpcionmenuPrincipal);
 int busquedaSuper(struct super supers[], int *ptrnumSupers);
 
 /* Muestra los datos completos de un único superhéroe encontrado */
-void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers,
-                               int *ptrNumeroPoderes, int *ptrNumeroDebilidades,
-                               int *ptrIndiceEncontrado);
+void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades, int *ptrIndiceEncontrado);
 
 /* Permite cambiar el estado de vigencia (SI/NO) de un superhéroe */
 void actualizarEstado(struct super supers[], int *ptrnumSupers);
