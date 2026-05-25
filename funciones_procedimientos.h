@@ -19,6 +19,7 @@
 #define W_CIUDAD 15  /* Ancho de la columna Ciudad de Origen*/
 #define W_PODERES 25  /* Ancho de la columna Poderes         */
 #define W_DEBIL 25  /* Ancho de la columna Debilidades     */
+#define W_ARCHIENEMIGO 20  /* Ancho de la columna Archienemigo    */
 #define W_SAGA 15  /* Ancho de la columna Saga            */
 #define W_ESTADO 10  /* Ancho de la columna Estado/Vigente  */
 

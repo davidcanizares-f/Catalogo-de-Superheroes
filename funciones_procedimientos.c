@@ -42,8 +42,8 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
         /* Variables locales para capturar la entrada antes de copiarla a la estructura */
         char nombre[100];
         char ciudadOrigen[100];
-        char poderes[*ptrNumeroPoderes][100];
-        char debilidades[*ptrNumeroDebilidades][100];
+        char poderes[10][100];
+        char debilidades[10][100];
         char archienemigo[100];
         char saga[100];
         char vigencia[2][4] = {"SI", "NO"}; /* Opciones de estado válidas */
@@ -118,15 +118,17 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
         /* ── Poderes ──
          * Primero solicita la cantidad y luego cada poder individual. */
         printf("> Poderes: \n");
-        printf("\tCantidad de poderes: ");
-        while ((scanf("%d", ptrNumeroPoderes) != 1) || *ptrNumeroPoderes <= 0) {
+        printf("\tCantidad de poderes (10 max): ");
+        int cantPoderes = 0;
+        while ((scanf("%d", &cantPoderes) != 1) || cantPoderes <= 0 || cantPoderes > 10) {
             printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
             while (getchar() != '\n');
             printf("\tCantidad de poderes: ");
         }
         getchar();
+        if (cantPoderes > *ptrNumeroPoderes) *ptrNumeroPoderes = cantPoderes; //se guarda el maximo hasta el momento.
 
-        for (int j = 0; j < *ptrNumeroPoderes; j++) {
+        for (int j = 0; j < cantPoderes; j++) {
             printf("\tPoder %d: ", j + 1);
             fgets(poderes[j], 80, stdin);
             poderes[j][strcspn(poderes[j], "\n")] = '\0';
@@ -136,15 +138,17 @@ void registrarSuper(struct super supers[], int *ptrnumSupers, int *ptrNumeroPode
         /* ── Debilidades ──
          * Mismo patrón que los poderes: cantidad primero, luego cada debilidad. */
         printf("> Debilidades: \n");
-        printf("\tCantidad de debilidades: ");
-        while ((scanf("%d", ptrNumeroDebilidades) != 1) || *ptrNumeroDebilidades <= 0) {
+        printf("\tCantidad de debilidades (10 max): ");
+        int cantDebilidades = 0;
+        while ((scanf("%d", &cantDebilidades) != 1) || cantDebilidades <= 0 || cantDebilidades > 10) {
             printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
             while (getchar() != '\n');
             printf("\tCantidad de debilidades: ");
         }
         getchar();
+        if (cantDebilidades > *ptrNumeroDebilidades) *ptrNumeroDebilidades = cantDebilidades; //se guarda el maximo hasta el momento.
 
-        for (int j = 0; j < *ptrNumeroDebilidades; j++) {
+        for (int j = 0; j < cantDebilidades; j++) {
             printf("\tDebilidad %d: ", j + 1);
             fgets(debilidades[j], 80, stdin);
             debilidades[j][strcspn(debilidades[j], "\n")] = '\0';
@@ -212,9 +216,7 @@ int menuPrincipal(int *ptrOpcionmenuPrincipal) {
     printf("Escoja una opcion: ");
 
     /* Repite la solicitud mientras la entrada sea inválida o fuera de rango */
-    while (scanf("%d", ptrOpcionmenuPrincipal) != 1 ||
-           *ptrOpcionmenuPrincipal > 5 ||
-           *ptrOpcionmenuPrincipal < 1) {
+    while (scanf("%d", ptrOpcionmenuPrincipal) != 1 || *ptrOpcionmenuPrincipal > 5 || *ptrOpcionmenuPrincipal < 1) {
         printf("[ERROR]: DATO INVALIDO O FUERA DE RANGO. INGRESE NUEVAMENTE.\n");
         while (getchar() != '\n');
         printf("\n==============================\n");
@@ -268,17 +270,19 @@ void truncar(char *destino, const char *cadena, int maxAncho) {
  *   ptrNumeroDebilidades – Número de debilidades por superhéroe.
  */
 void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPoderes, int *ptrNumeroDebilidades) {
-
+    int filas;
     /* Calcula el ancho total de la tabla sumando columnas y separadores */
-    int totalAncho = W_ID + W_NOMBRE + W_PESO + W_ALTURA + W_CIUDAD + W_PODERES + W_DEBIL + W_SAGA + W_ESTADO + 8;
+    int totalAncho = W_ID + W_NOMBRE + W_PESO + W_ALTURA + W_CIUDAD + W_PODERES + W_DEBIL + W_ARCHIENEMIGO + W_SAGA + W_ESTADO + 9;
 
     /* ── Línea superior ── */
     printf("\n");
-    for (int k = 0; k < totalAncho; k++) printf("=");
+    for (int k = 0; k < totalAncho; k++){
+        printf("=");
+    }
     printf("\n");
 
     /* ── Encabezado de columnas ── */
-    printf("%-*s %-*s %-*s %-*s %-*s %-*s %-*s %-*s %-*s\n",
+    printf("%-*s %-*s %-*s %-*s %-*s %-*s %-*s %-*s %-*s %-*s\n",
            W_ID,      "ID",
            W_NOMBRE,  "NOMBRE",
            W_PESO,    "PESO",
@@ -286,10 +290,13 @@ void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPodere
            W_CIUDAD,  "CIUDAD",
            W_PODERES, "PODERES",
            W_DEBIL,   "DEBILIDADES",
+           W_ARCHIENEMIGO,  "ARCHIENEMIGOS",
            W_SAGA,    "SAGA",
            W_ESTADO,  "VIGENTE");
 
-    for (int k = 0; k < totalAncho; k++) printf("=");
+    for (int k = 0; k < totalAncho; k++){
+        printf("=");
+    }
     printf("\n");
 
     /* ── Filas de datos ── */
@@ -300,21 +307,35 @@ void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPodere
         char ciudadTrunc[W_CIUDAD + 1];
         char sagaTrunc[W_SAGA + 1];
         char estadoTrunc[W_ESTADO + 1];
+        char archienemigoTrunc[W_ARCHIENEMIGO + 1];
 
         truncar(nombreTrunc, supers[i].nombre, W_NOMBRE);
         truncar(ciudadTrunc, supers[i].fichaTecnica1.ciudadOrigen, W_CIUDAD);
         truncar(sagaTrunc,   supers[i].saga, W_SAGA);
         truncar(estadoTrunc, supers[i].estado, W_ESTADO);
+        truncar(archienemigoTrunc, supers[i].fichaTecnica1.archienemigo, W_ARCHIENEMIGO);
 
         /* Cuenta cuántos poderes y debilidades tiene este superhéroe */
         int numPoderes = 0, numDebil = 0;
-        for (int j = 0; j < *ptrNumeroPoderes; j++)
+        for (int j = 0; j < *ptrNumeroPoderes; j++){
             if (strlen(supers[i].fichaTecnica1.poderes[j]) > 0) numPoderes++;
-        for (int j = 0; j < *ptrNumeroDebilidades; j++)
+        }
+
+        for (int j = 0; j < *ptrNumeroDebilidades; j++){
             if (strlen(supers[i].fichaTecnica1.debilidades[j]) > 0) numDebil++;
+        }
+                    
 
         /* El número de filas necesarias es el mayor entre poderes y debilidades */
-        int filas = (numPoderes > numDebil) ? numPoderes : numDebil;
+
+        if(numPoderes > numDebil){
+            filas=numPoderes;
+        }else{
+            filas=numDebil;
+        }
+
+
+
         if (filas == 0) filas = 1; /* Mínimo una fila aunque no haya lista */
 
         /* Imprime una fila por cada poder/debilidad */
@@ -355,6 +376,15 @@ void mostrarDatos(struct super supers[], int *ptrnumSupers, int *ptrNumeroPodere
             } else {
                 printf("%-*s ", W_DEBIL, ""); /* Celda vacía si no hay debilidad */
             }
+            /* ── ARCHIENEMIGO: solo se imprime en la primera fila ── */
+            if (fila == 0) {
+                char archienemigoTrunc[W_ARCHIENEMIGO + 1];
+                truncar(archienemigoTrunc, supers[i].fichaTecnica1.archienemigo, W_ARCHIENEMIGO);
+                printf("%-*s ", W_ARCHIENEMIGO, archienemigoTrunc);
+            } else {
+                printf("%-*s ", W_ARCHIENEMIGO, ""); /* Celda vacía en filas siguientes */
+            }
+
 
             /* ── SAGA y ESTADO solo se imprimen en la primera fila ── */
             if (fila == 0) {
@@ -481,21 +511,27 @@ void mostrarDatosIndividuales(struct super supers[], int *ptrnumSupers, int *ptr
     printf("\n=========================\n");
     printf("> ID: %d\n", supers[*ptrIndiceEncontrado].id);
     printf("> NOMBRE: %s\n", supers[*ptrIndiceEncontrado].nombre);
-    printf("> PESO: %.2f\n", supers[*ptrIndiceEncontrado].peso);
-    printf("> ALTURA: %.2f\n", supers[*ptrIndiceEncontrado].altura);
+    printf("> PESO: %.2f kg\n", supers[*ptrIndiceEncontrado].peso);
+    printf("> ALTURA: %.2f m\n", supers[*ptrIndiceEncontrado].altura);
     printf("> CIUDAD ORIGEN: %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.ciudadOrigen);
 
     /* Lista todos los poderes registrados */
     printf("> PODERES:\n");
     for (int j = 0; j < *ptrNumeroPoderes; j++){
-        printf("    - %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.poderes[j]);
+        if (strlen(supers[*ptrIndiceEncontrado].fichaTecnica1.poderes[j]) > 0){
+            printf("    - %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.poderes[j]);
+        }
+        
     }
         
 
     /* Lista todas las debilidades registradas */
     printf("> DEBILIDADES:\n");
     for (int j = 0; j < *ptrNumeroDebilidades; j++){
-        printf("    - %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.debilidades[j]);
+        if (strlen(supers[*ptrIndiceEncontrado].fichaTecnica1.debilidades[j]) > 0){
+            printf("    - %s\n", supers[*ptrIndiceEncontrado].fichaTecnica1.debilidades[j]);
+        }
+        
     }
         
 
