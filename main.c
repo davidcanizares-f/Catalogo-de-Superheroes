@@ -18,7 +18,7 @@ Autores:
 #include <string.h>
 #include <stdbool.h>
 #include "funciones_procedimientos.h"
-#include "funciones_procedimientos.c" /////////borrar para la version final
+
 
 
 /* ── Prototipos de funciones (definidas en funciones_procedimientos.c) ── */
